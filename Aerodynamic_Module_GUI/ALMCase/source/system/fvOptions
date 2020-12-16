@@ -1,0 +1,226 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.x                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      fvOptions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+#include        "../0/include/initialConditions"
+
+
+
+turbine
+{
+    type            axialFlowTurbineALSource;
+    active          on;
+
+    axialFlowTurbineALSourceCoeffs
+    {
+        fieldNames          (U);
+        selectionMode       cellSet; // cellSet || points || cellZone
+        cellSet             turbine;
+        origin              (0 0 0);
+        //axis                (-cos($Yaw*pi()/180) 0 sin($Yaw*pi()/180));
+        //axis		    (-1 0 0);
+        verticalDirection   (0 0 1);
+        freeStreamVelocity  ($WndVel 0 0);
+        tipSpeedRatio       $TSR; 
+        rotorRadius         89.13;
+	yaw		    $Yaw;
+        BlPitch		    $BldPitchAng;
+
+        dynamicStall
+        {
+            active          $DynamicStall;
+            dynamicStallModel LeishmanBeddoes;
+        }
+
+        endEffects
+        {
+            active          $EndEffects;
+            endEffectsModel $EndEffectsModel; // Glauert || Shen || liftingLine
+            GlauertCoeffs
+            {
+                tipEffects  on;
+                rootEffects on;
+            }
+            ShenCoeffs
+            {
+                c1          0.125;
+                c2          21;
+                tipEffects  on;
+                rootEffects on;
+            }
+        }
+
+        blades
+        {
+            blade1
+            {
+                writePerf   true;
+                writeElementPerf true;
+                nElements   37;
+                elementProfiles
+                (
+			cylinder
+			cylinder
+			cylinder
+			FFA_W3_600
+			FFA_W3_600			
+			FFA_W3_600
+			FFA_W3_600
+			FFA_W3_480
+			FFA_W3_480
+			FFA_W3_360
+			FFA_W3_360
+			FFA_W3_360
+			FFA_W3_301
+			FFA_W3_301
+			FFA_W3_301
+			FFA_W3_301
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+			FFA_W3_241
+                );
+                elementData
+                ( // axialDistance, radius, azimuth, chord, chordMount, pitch
+(	0.00E+00	0	0.00E+00	5.38	5.00E-01	-14.49106	)
+(	0.00E+00	4.8	0.00E+00	5.38	5.00E-01	-14.49106	)
+(	0.00E+00	7.512	0.00E+00	5.422947	5.00E-01	-14.424209	)
+(	0.00E+00	9.119	0.00E+00	5.503171	5.00E-01	-14.260414	)
+(	0.00E+00	10.275	0.00E+00	5.577011	2.50E-01	-14.043888	)
+(	0.00E+00	11.658	0.00E+00	5.678866	2.50E-01	-13.581343	)
+(	0.00E+00	13.258	0.00E+00	5.802144	2.50E-01	-12.908756	)
+(	0.00E+00	15.068	0.00E+00	5.937015	2.50E-01	-11.908994	)
+(	0.00E+00	17.075	0.00E+00	6.063689	2.50E-01	-10.680366	)
+(	0.00E+00	19.267	0.00E+00	6.157123	2.50E-01	-9.479599	)
+(	0.00E+00	21.633	0.00E+00	6.201273	2.50E-01	-8.385097	)
+(	0.00E+00	24.156	0.00E+00	6.191868	2.50E-01	-7.60694	)
+(	0.00E+00	26.823	0.00E+00	6.128953	2.50E-01	-6.957972	)
+(	0.00E+00	29.617	0.00E+00	6.013883	2.50E-01	-6.369216	)
+(	0.00E+00	32.521	0.00E+00	5.85419	2.50E-01	-5.809149	)
+(	0.00E+00	35.519	0.00E+00	5.657992	2.50E-01	-5.254826	)
+(	0.00E+00	38.591	0.00E+00	5.43481	2.50E-01	-4.69118	)
+(	0.00E+00	41.72	0.00E+00	5.190131	2.50E-01	-4.087893	)
+(	0.00E+00	44.886	0.00E+00	4.929373	2.50E-01	-3.44539	)
+(	0.00E+00	48.072	0.00E+00	4.658367	2.50E-01	-2.790276	)
+(	0.00E+00	51.257	0.00E+00	4.383529	2.50E-01	-2.125135	)
+(	0.00E+00	54.423	0.00E+00	4.110851	2.50E-01	-1.481714	)
+(	0.00E+00	57.55	0.00E+00	3.844928	2.50E-01	-0.86834	)
+(	0.00E+00	60.62	0.00E+00	3.588651	2.50E-01	-0.294717	)
+(	0.00E+00	63.615	0.00E+00	3.344616	2.50E-01	0.221191	)
+(	0.00E+00	66.516	0.00E+00	3.115337	2.50E-01	0.704843	)
+(	0.00E+00	69.306	0.00E+00	2.902838	2.50E-01	1.120529	)
+(	0.00E+00	71.968	0.00E+00	2.707497	2.50E-01	1.517145	)
+(	0.00E+00	74.487	0.00E+00	2.529161	2.50E-01	1.876009	)
+(	0.00E+00	76.847	0.00E+00	2.364962	2.50E-01	2.210462	)
+(	0.00E+00	79.034	0.00E+00	2.20011	2.50E-01	2.520387	)
+(	0.00E+00	81.034	0.00E+00	2.018238	2.50E-01	2.797971	)
+(	0.00E+00	82.837	0.00E+00	1.811887	2.50E-01	3.032812	)
+(	0.00E+00	84.431	0.00E+00	1.536297	2.50E-01	3.220965	)
+(	0.00E+00	85.806	0.00E+00	1.1384	2.50E-01	3.369622	)
+(	0.00E+00	86.955	0.00E+00	1.1384	2.50E-01	3.42796	)
+(	0.00E+00	87.87	0.00E+00	1.1384	2.50E-01	3.42796	)
+(	0.00E+00	88.546	0.00E+00	1.1384	2.50E-01	3.42796	)
+                );
+            }
+            blade2
+            {
+                $blade1;
+                writePerf   true;
+                writeElementPerf true;
+                azimuthalOffset 120.0;
+            }
+            blade3
+            {
+                $blade2;
+                azimuthalOffset 240.0;
+            }
+
+        }
+/*
+        tower
+        {
+            includeInTotalDrag  false; // default is false
+            nElements   6;
+            elementProfiles (cylinder);
+            elementData
+            ( // axial distance (turbine axis), height, diameter
+                (0.9 -4.5 0.4)
+                (0.9 -3.0 0.4)
+                (0.9 -1.5 0.4)
+                (0.9  0.0 0.4)
+            );
+        }
+
+        hub
+        {
+            nElements   1;
+            elementProfiles (cylinder);
+            elementData
+            ( // axial distance, height, diameter
+                (0 0.21 0.21)
+                (0 -0.21 0.21)
+            );
+        }*/
+
+        profileData
+        {
+			FFA_W3_600
+			{
+			  data (#include "../airfoils/FFA_W3_600");
+			}
+			FFA_W3_480
+			{
+			  data (#include "../airfoils/FFA_W3_480");
+			}
+			FFA_W3_360
+			{
+			  data (#include "../airfoils/FFA_W3_360");
+			}
+			FFA_W3_301
+			{
+			  data (#include "../airfoils/FFA_W3_301");
+			}
+			FFA_W3_241
+			{
+			  data (#include "../airfoils/FFA_W3_241");
+			}
+            cylinder
+            {
+                data ((-180 0 1.1)(180 0 1.1));
+            }
+        }
+    }
+}
+
+// ************************************************************************* //

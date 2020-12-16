@@ -1,0 +1,15 @@
+#!/bin/bash
+#SBATCH   --partition=main
+#SBATCH   --job-name=f0.05
+#SBATCH   -n 1 
+#SBATCH   --mem=30G
+#SBATCH   --time=72:00:00
+#SBATCH   --output=output.out
+#SBATCH   --error=error.log
+#SBATCH   --mail-user=kai.zhang3@rutgers.edu
+#SBATCH   --mail-type=BEGIN,END,FAIL
+#SBATCH   --requeue
+#SBATCH   --export=ALL
+
+srun reconstructPar -fields '(U)' -time 99.2462284851787331 
+srun postProcess -func Q -time 99.2462284851787331 

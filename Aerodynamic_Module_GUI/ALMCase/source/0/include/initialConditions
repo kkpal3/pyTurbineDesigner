@@ -1,0 +1,15 @@
+/*--------------------------------*- C++ -*----------------------------------*\ 
+| =========                 |                                                 | 
+| \      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           | 
+|  \    /   O peration     | Version:  4.x                                   | 
+|   \  /    A nd           | Web:      www.OpenFOAM.org                      | 
+|    \/     M anipulation  |                                                 | 
+\*---------------------------------------------------------------------------*/ 
+WndVel		11.4;
+TSR		0 0.5 20;
+BldPitchAng	0;
+Yaw		0;
+EndTime		200;
+WriteInterval		500;
+DynamicStall	off;
+EndEffectsModel	Shen;
